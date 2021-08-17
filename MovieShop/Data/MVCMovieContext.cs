@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using MovieShop.Models;
+
+namespace MovieShop.Data
+{
+    public class MVCMovieContext : DbContext
+    {
+        public MVCMovieContext(DbContextOptions<MVCMovieContext> options)
+            : base(options)
+        {
+        }
+        public DbSet<Movie> Movie { get; set; }
+    }
+}
