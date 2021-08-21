@@ -28,6 +28,7 @@ namespace MovieShop.Models
                         Title = "When Harry Met Sally",
                         Release = DateTime.Parse("1989-2-12"),
                         Genre = "Romantic Comedy",
+                        Rating = "R",
                         Price = 7.99M
                     },
 
@@ -36,6 +37,7 @@ namespace MovieShop.Models
                         Title = "Ghostbusters ",
                         Release = DateTime.Parse("1984-3-13"),
                         Genre = "Comedy",
+                        Rating = "R",
                         Price = 8.99M
                     },
 
@@ -44,6 +46,7 @@ namespace MovieShop.Models
                         Title = "Ghostbusters 2",
                         Release = DateTime.Parse("1986-2-23"),
                         Genre = "Comedy",
+                        Rating = "R",
                         Price = 9.99M
                     },
 
@@ -52,6 +55,7 @@ namespace MovieShop.Models
                         Title = "Rio Bravo",
                         Release = DateTime.Parse("1959-4-15"),
                         Genre = "Western",
+                        Rating = "R",
                         Price = 3.99M
                     }
                 );
