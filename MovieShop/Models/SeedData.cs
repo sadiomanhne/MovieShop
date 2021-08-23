@@ -57,6 +57,14 @@ namespace MovieShop.Models
                         Genre = "Western",
                         Rating = "R",
                         Price = 3.99M
+                    },
+                    new Movie
+                    {
+                        Title = "Rio 2",
+                        Release = DateTime.Parse("1996-12-15"),
+                        Genre = "Western",
+                        Rating = "R",
+                        Price = 5.99M
                     }
                 );
                 context.SaveChanges();
