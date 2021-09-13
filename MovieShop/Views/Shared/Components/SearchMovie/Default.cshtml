@@ -1,0 +1,16 @@
+﻿@model MovieShop.Models.SearchMovieViewModel
+
+<div class="search-bar-top">
+    <div class="search-bar">
+        <form class="search-movie-form" asp-controller="Home" asp-action="Index" method="get">
+            <select name="MovieGenre" asp-items="Model.Genres">
+                <option value="">All Genre</option>
+            </select>
+            <div class="keyword-form">
+                <input name="SearchString" placeholder="Search Products Here....." type="search">
+                <button class="btnn"><i class="ti-search"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+

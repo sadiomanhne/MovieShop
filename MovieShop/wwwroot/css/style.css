@@ -4982,3 +4982,15 @@ Version:1.0
 	End Footer CSS
 ===============================*/
 
+/* Override CSS*/
+.keyword-form {
+	display: inline-block;
+	float: left;
+	width: 260px;
+}
+
+.header.shop .search-bar form.search-movie-form {
+	display: block;
+	float: unset;
+	width: unset;
+}
