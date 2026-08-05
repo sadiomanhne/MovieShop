@@ -14,9 +14,9 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '3.1.x'
-      - run: dotnet restore
-      - run: dotnet build --configuration Release --no-restore
-      - run: dotnet publish -c Release -o ./publish
+      - run: dotnet restore ./MovieShop/MovieShop.csproj
+      - run: dotnet build ./MovieShop/MovieShop.csproj --configuration Release --no-restore
+      - run: dotnet publish ./MovieShop/MovieShop.csproj -c Release -o ./publish
 
   deploy-main:
     needs: build
