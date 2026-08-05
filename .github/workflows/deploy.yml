@@ -1,0 +1,49 @@
+name: ASP.NET Core Multi-Branch Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet restore
+      - run: dotnet build --configuration Release --no-restore
+      - run: dotnet publish -c Release -o ./publish
+
+  deploy-main:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production   # 👈 requires approval
+    steps:
+      - name: Deploy to Production FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_SERVER_MAIN }}
+          username: ${{ secrets.FTP_USERNAME_MAIN }}
+          password: ${{ secrets.FTP_PASSWORD_MAIN }}
+          local-dir: ./publish
+          server-dir: ${{ secrets.FTP_PATH_MAIN }}
+
+  deploy-develop:
+    needs: build
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: develop      # 👈 optional approval
+    steps:
+      - name: Deploy to Staging FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.FTP_SERVER_DEV }}
+          username: ${{ secrets.FTP_USERNAME_DEV }}
+          password: ${{ secrets.FTP_PASSWORD_DEV }}
+          local-dir: ./publish
+          server-dir: ${{ secrets.FTP_PATH_DEV }}
