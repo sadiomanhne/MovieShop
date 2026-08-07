@@ -17,13 +17,16 @@ jobs:
           dotnet-version: '3.1.x'
       - run: dotnet restore ./MovieShop/MovieShop.csproj
       - run: dotnet build ./MovieShop/MovieShop.csproj --configuration Release --no-restore
-      - run: dotnet publish ./MovieShop/MovieShop.csproj -c Release -o ./publish/
+      - run: dotnet publish ./MovieShop/MovieShop.csproj -c Release -o ./MovieShop/publish/
+
+      - name: Verify publish folder
+        run: ls -la ./MovieShop/publish/
 
   deploy-main:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: production   # 👈 requires approval if configured
+    environment: production
     steps:
       - name: Deploy to Production FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -38,7 +41,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
-    environment: develop      # 👈 optional approval
+    environment: develop
     steps:
       - name: Deploy to Staging FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
