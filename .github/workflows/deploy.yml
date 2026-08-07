@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+  workflow_dispatch:   # 👈 enables manual trigger from Actions tab
 
 jobs:
   build:
@@ -16,13 +17,13 @@ jobs:
           dotnet-version: '3.1.x'
       - run: dotnet restore ./MovieShop/MovieShop.csproj
       - run: dotnet build ./MovieShop/MovieShop.csproj --configuration Release --no-restore
-      - run: dotnet publish ./MovieShop/MovieShop.csproj -c Release -o ./publish
+      - run: dotnet publish ./MovieShop/MovieShop.csproj -c Release -o ./publish/
 
   deploy-main:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: production   # 👈 requires approval
+    environment: production   # 👈 requires approval if configured
     steps:
       - name: Deploy to Production FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
