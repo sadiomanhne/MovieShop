@@ -25,7 +25,7 @@ jobs:
     environment: production   # 👈 requires approval
     steps:
       - name: Deploy to Production FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER_MAIN }}
           username: ${{ secrets.FTP_USERNAME_MAIN }}
@@ -40,7 +40,7 @@ jobs:
     environment: develop      # 👈 optional approval
     steps:
       - name: Deploy to Staging FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER_DEV }}
           username: ${{ secrets.FTP_USERNAME_DEV }}
