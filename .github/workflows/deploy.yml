@@ -11,16 +11,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '3.1.x'
-      - run: dotnet restore ./MovieShop/MovieShop.csproj
-      - run: dotnet build ./MovieShop/MovieShop.csproj --configuration Release --no-restore
-      - run: dotnet publish ./MovieShop/MovieShop.csproj -c Release -o ./MovieShop/publish/
 
-      - name: Verify publish folder
-        run: ls -la ./MovieShop/publish/
+      - name: Restore dependencies
+        run: dotnet restore ./MovieShop/MovieShop.csproj
+
+      - name: Build
+        run: dotnet build ./MovieShop/MovieShop.csproj --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish ./MovieShop/MovieShop.csproj -c Release -o ./MovieShop/publish/
+
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: publish
+          path: ./MovieShop/publish/
 
   deploy-main:
     needs: build
@@ -28,6 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
+      - name: Download publish artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: publish
+          path: ./MovieShop/publish/
+
       - name: Deploy to Production FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -43,6 +61,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: develop
     steps:
+      - name: Download publish artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: publish
+          path: ./MovieShop/publish/
+
       - name: Deploy to Staging FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
