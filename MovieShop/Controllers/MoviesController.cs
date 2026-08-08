@@ -23,12 +23,12 @@ namespace MovieShop.Controllers
         {
             //Use LINQ to get list of geners.
 
-            IQueryable<string> genreQuery = from m in _context.Movie
+            IQueryable<string> genreQuery = from m in _context.Movie.AsQueryable()
                                             orderby m.Genre
                                             select m.Genre;
 
             //-------------------------------------------------------------------------------------
-            var movies = from m in _context.Movie
+            var movies = from m in _context.Movie.AsQueryable()
                          select m;
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -57,7 +57,7 @@ namespace MovieShop.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie
+            var movie = await _context.Movie.AsQueryable()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
@@ -150,7 +150,7 @@ namespace MovieShop.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie
+            var movie = await _context.Movie.AsQueryable()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {

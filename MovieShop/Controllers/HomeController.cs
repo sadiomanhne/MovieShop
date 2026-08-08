@@ -26,12 +26,12 @@ namespace MovieShop.Controllers
         {
             //Use LINQ to get list of geners.
 
-            IQueryable<string> genreQuery = from m in _context.Movie
+            IQueryable<string> genreQuery = from m in _context.Movie.AsQueryable()
                                             orderby m.Genre
                                             select m.Genre;
 
             //-------------------------------------------------------------------------------------
-            var movies = from m in _context.Movie
+            var movies = from m in _context.Movie.AsQueryable()
                          select m;
             if (!string.IsNullOrEmpty(searchString))
             {

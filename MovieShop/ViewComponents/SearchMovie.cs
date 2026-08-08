@@ -22,12 +22,12 @@ namespace MovieShop.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(
         )
         {
-            IQueryable<string> genreQuery = from m in _context.Movie
+            IQueryable<string> genreQuery = from m in _context.Movie.AsQueryable()
                                             orderby m.Genre
                                             select m.Genre;
 
             //-------------------------------------------------------------------------------------
-            var movies = from m in _context.Movie
+            var movies = from m in _context.Movie.AsQueryable()
                          select m;
             
             var movieGenreVM = new SearchMovieViewModel
